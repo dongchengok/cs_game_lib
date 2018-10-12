@@ -1,5 +1,10 @@
 # cs_game_lib
-my game library
-## 试一下VSCode的markdown
-### 再试一下
-目录功能
+为了统一不同类型，平台，引擎项目的开发流程与逻辑架构的工具库。
+
+
+
+**asdsdf**
+<!-- slide -->
+#asdfasdf
+<!-- slide -->
+sdafasdf
