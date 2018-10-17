@@ -1,0 +1,3 @@
+Doc/test_ignore.lua
+Tools/*.pyc
+.vscode

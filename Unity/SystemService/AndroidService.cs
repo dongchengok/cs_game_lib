@@ -47,6 +47,24 @@ namespace CSUnity.SystemService
             }
         }
 
+        public static string GetSystemProperty(string name)
+        {
+            using( AndroidJavaClass _SysProps = AndroidJavaClass("android.os.SystemProperties"))
+            {
+                //_SysProps.CallStatic<string>("get","ril.gsm.imei")
+
+            }
+        }
+
+        public static bool SetSystemProperty(string name,string value)
+        {
+            using( AndroidJavaClass _SysProps = AndroidJavaClass("android.os.SystemProperties"))
+            {
+                //_SysProps.CallStatic<string>("get","ril.gsm.imei")
+                _SysProps.CallStatic<string>("set",name,value);
+            }
+        }
+
         /// <summary>
         /// 获取设备IMEI，GSM的唯一识别码
         /// </summary>
