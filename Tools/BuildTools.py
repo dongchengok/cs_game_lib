@@ -1,7 +1,6 @@
 # coding:utf-8
 import os
 import os.path
-import sys
 from shutil import rmtree,copytree
 from contextlib import closing
 
@@ -27,11 +26,13 @@ class CBuildCMD_File(CBuildCMD):
 class CBuildCMD_FileFromString(CBuildCMD_File):
     def __init__(self,filename,str,*args):
         CBuildCMD_File.__init__(self,filename)
-        self._str = str.format(*args)
+        self._str = str
+        if len(args)>0:
+            self._str = str.format(*args)      
     def Config(self,rool_path):
         _path = os.path.join(rool_path,self._filename)
         print("创建文件:{0}".format(_path))
-        with closing(open(_path,"wb")) as file:
+        with closing(open(_path, "wb")) as file:
             file.write(self._str)
             file.close()
         
@@ -50,7 +51,7 @@ class CBuildCMD_FileFromFile(CBuildCMD_File):
             count = file.tell()
             file.seek(0,0)
             str_src = file.read(count)
-        if self._args!=None and len(self._args)>0:
+        if len(self._args)>0:
             str_src = str_src.format(*self._args)
         with closing(open(_path,"wb")) as file:
             file.write(str_src)

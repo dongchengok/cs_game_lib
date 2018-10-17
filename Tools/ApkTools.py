@@ -1,9 +1,6 @@
 # coding:utf-8
 import CmdTools
 import ZipFileTools
-import os
-import os.path
-from shutil import rmtree,copytree
 from BuildTools import *
 
 CmdTools.StdoutWithCodecs()
@@ -85,3 +82,7 @@ build_config.Init(
 print(isinstance(build_config,CBuildApkConfig)) """
 
 #print(type("haha")==str)
+""" import json
+asdf = {"haha":1,"hoho":2}
+cmd = CBuildCMD_FileFromString("d:/123.txt",json.dumps(asdf))
+cmd.Config("d:/") """
