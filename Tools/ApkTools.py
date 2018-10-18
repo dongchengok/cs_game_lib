@@ -44,45 +44,53 @@ class CBuildApk:
             _apk_name_ = self._filename[:-4]+"_"+v.name+".apk"
             print "开始打包:"+_apk_name_
             v.Config(_unzip_temp_)
-            #os.execl(sys.executable,sys.executable)
-            #os.system("jarsigner -verbose -keystore %keystoreFrom% -signedjar %root%\%proName%\mobile\!fileName!_tracker!tracker[%%j]!.apk pre_!fileName!_tracker!tracker[%%j]!.apk basketball_alpha1 -storepass dj-game")
+            # os.execl(sys.executable,sys.executable)
             ZipFileTools.zip_archive(_unzip_temp_,_apk_name_)
+            os.system("jarsigner -verbose -keystore {0} -signedjar {1} {2} {3} -storepass {4}".format(self._keystore,_apk_name_,_apk_name_,self._alias,self._alias_pwd))
             print "打包成功:"+_apk_name_
             v.Revert(_unzip_temp_)
+        if os.path.exists(_unzip_temp_):
+            print "开始删除解压文件:"+_unzip_temp_
+            rmtree(_unzip_temp_)
 
-configs = [
+""" configs = [
     {
-        "name":"hohoho",
+        "name":"100",
         "config":[
-            [CBuildCMD_FileFromString,"haha.txt","hello world"],
-            [CBuildCMD_FileFromFile,"haha.txt","D:/haha.txt","dc","cd"]
+            [CBuildCMD_FileFromString,"assets/Version/tracker.info","100"],
+            [CBuildCMD_FolderRemove,"META-INF"]
         ]
     },
     {
-        "name":"hahaha",
+        "name":"666",
         "config":[
-            [CBuildCMD_FileFromString,"haha.txt","hello world"],
-            [CBuildCMD_FileFromFile,"haha.txt","D:/haha.txt","dc","cd"]
+            [CBuildCMD_FileFromString,"assets/Version/tracker.info","666"],
+            [CBuildCMD_FolderRemove,"META-INF"]
+        ]
+    },
+    {
+        "name":"777",
+        "config":[
+            [CBuildCMD_FileFromString,"assets/Version/tracker.info","777"],
+            [CBuildCMD_FolderRemove,"META-INF"]
+        ]
+    },
+    {
+        "name":"998",
+        "config":[
+            [CBuildCMD_FileFromString,"assets/Version/tracker.info","998"],
+            [CBuildCMD_FolderRemove,"META-INF"]
+        ]
+    },
+    {
+        "name":"702",
+        "config":[
+            [CBuildCMD_FileFromString,"assets/Version/tracker.info","702"],
+            [CBuildCMD_FolderRemove,"META-INF"]
         ]
     },
 ]
 
-build = CBuildApk("D:/111.apk",1,1,1,1)
+build = CBuildApk("D:/BCM.apk","D:/BCM/program/UnityProjects/GameTemplate/keystores/user.keystore","","basketball_alpha1","dj-game")
 build.Config(*configs)
-
-""" build_config = CBuildApkConfig("hello")
-build_config.Init(
-    [
-        [CBuildCMD_FileFromString,"haha.txt","hello world"],
-        [CBuildCMD_FileFromFile,"haha.txt","D:/haha.txt","dc","cd"]
-    ]
-) """
-
-""" print(type(build_config)==CBuildApkConfig)
-print(isinstance(build_config,CBuildApkConfig)) """
-
-#print(type("haha")==str)
-""" import json
-asdf = {"haha":1,"hoho":2}
-cmd = CBuildCMD_FileFromString("d:/123.txt",json.dumps(asdf))
-cmd.Config("d:/") """
+build.Build() """

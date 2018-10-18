@@ -72,6 +72,20 @@ class CBuildCMD_Folder:
         if os.path.exists(_path):
             rmtree(_path)
 
+class CBuildCMD_FolderRemove:
+    def __init__(self,folder,revert_need=False):
+        self._folder = folder
+        self._revert_need = revert_need
+    def Config(self,root_path):
+        self.Revert(root_path)
+        _path = os.path.join(root_path,self._folder)
+        if os.path.exists(_path):
+            print("删除文件夹:{0}".format(_path))
+            rmtree(_path)
+    def Revert(self,root_path):
+        if self._revert_need:
+            pass
+
 #apk打包的配置文件
 class CBuildConfig:
     def __init__(self,name):
