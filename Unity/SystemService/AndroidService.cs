@@ -1,4 +1,4 @@
-namespace CSUnity.SystemService
+namespace CSUnity
 {
     /// <summary>
     /// android系统函数

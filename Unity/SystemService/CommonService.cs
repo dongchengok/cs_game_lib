@@ -1,4 +1,4 @@
-namespace CSUnity.SystemService
+namespace CSUnity
 {
     public class CommonService
     {
