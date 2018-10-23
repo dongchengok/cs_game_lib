@@ -13,22 +13,33 @@ namespace CSUnity
                 mParams.Add(new KeyValuePair<string,string>(key,value));
             }
         }
-        public void Init()
+        public static void Init()
         {
 
         }
 
-        public void SignIn(Action<string> callback=null)
+        public static void SetUserUID(string uid)
+        {
+            using(AndroidJavaClass sdk = AndroidJavaClass("lib.game.cs.sdkservice.SDKService"))
+            {
+                using(AndroidJavaClass sdk = AndroidJavaClass("lib.game.cs.sdkservice.SDKService"))
+                {
+                    sdk.CallStatic("setUserUID",uid);
+                }
+            } 
+        }
+
+        public static void SignIn(Action<string> callback=null)
         {
             
         }
 
-        public void SignOut(Action<string> callback=null)
+        public static void SignOut(Action<string> callback=null)
         {
 
         }
 
-        public void LogEvent(string name, Params params=null)
+        public static void LogEvent(string name, Params params=null)
         {
             using(AndroidJavaClass sdk = AndroidJavaClass("lib.game.cs.sdkservice.SDKService"))
             {
@@ -43,7 +54,7 @@ namespace CSUnity
             }
         }
 
-        public void LogRegister(string method, bool is_success)
+        public static void LogRegister(string method, bool is_success)
         {
             using(AndroidJavaClass sdk = AndroidJavaClass("lib.game.cs.sdkservice.SDKService"))
             {
@@ -51,7 +62,7 @@ namespace CSUnity
             }
         }
 
-        public void LogPurchase(string type, string name, string id, int num, string channel, string currency, bool is_sucess, int amount)
+        public static void LogPurchase(string type, string name, string id, int num, string channel, string currency, bool is_sucess, int amount)
         {
             using(AndroidJavaClass sdk = AndroidJavaClass("lib.game.cs.sdkservice.SDKService"))
             {
