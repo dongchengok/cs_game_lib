@@ -4,39 +4,59 @@ namespace CSUnity
 {
     class SDKService
     {
+        public class Params
+        {
+            List<KeyValuePair<string,string>> mParams = new List<KeyValuePair<string,string>>();
+
+            public Put(string key, string value)
+            {
+                mParams.Add(new KeyValuePair<string,string>(key,value));
+            }
+        }
         public void Init()
         {
 
         }
 
-        public void SignIn(Action<string> callback)
+        public void SignIn(Action<string> callback=null)
         {
             
         }
 
-        public void SignOut(Action<string> callback)
+        public void SignOut(Action<string> callback=null)
         {
 
         }
 
-        public void LogEvent(string name, Dictionary<string,string> params=null)
+        public void LogEvent(string name, Params params=null)
         {
-
+            using(AndroidJavaClass sdk = AndroidJavaClass("lib.game.cs.sdkservice.SDKService"))
+            {
+                using(AndroidJavaObject params = sdk.CallStatic<AndroidJavaObject>("newLogParams")
+                {
+                    foreach (var item in params.mParams)
+                    {
+                        params.Call("putString",item.key,item.value);
+                    }
+                    sdk.CallStatic("logEvent",name,params);
+                }
+            }
         }
 
-        public void Purchase()
+        public void LogRegister(string method, bool is_success)
         {
-
+            using(AndroidJavaClass sdk = AndroidJavaClass("lib.game.cs.sdkservice.SDKService"))
+            {
+                sdk.CallStatic("logRegister",method,is_success);
+            }
         }
 
-        public void OnPause()
+        public void LogPurchase(string type, string name, string id, int num, string channel, string currency, bool is_sucess, int amount)
         {
-
-        }
-
-        public void OnResume()
-        {
-
+            using(AndroidJavaClass sdk = AndroidJavaClass("lib.game.cs.sdkservice.SDKService"))
+            {
+                sdk.CallStatic("logPurchase",type,name,id,num,channel,currency,is_success,amount);
+            }
         }
     }
 }
